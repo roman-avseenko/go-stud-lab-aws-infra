@@ -1,0 +1,32 @@
+---
+
+# https://github.com/terraform-docs/terraform-docs/blob/master/docs/user-guide/configuration.md
+formatter: markdown table
+
+header-from: main.tf
+
+output:
+  file: "README.md"
+  mode: inject
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
+
+sort:
+  enabled: true
+  by: required
+
+settings:
+  anchor:      true
+  color:       true
+  default:     true
+  description: false
+  escape:      true
+  html:        true
+  indent:      2
+  required:    true
+  sensitive:   true
+  type:        true
+
+...
