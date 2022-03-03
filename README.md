@@ -57,7 +57,7 @@ For example, calculator-vpc-dev-2tum67n7.
  - Complete VPC database
  - Peering connection between VPCs
  - Empty ECS cluster
- - RDS based PostgreSQL database
+ - RDS based PostgreSQL 14.1 database
 > Database will be only accessible from the VPC for ECS.
 
 ## Setup
@@ -73,7 +73,6 @@ Specify AWS user`s credentials using AWS CLI:
 ```bash
 aws configure --profile name
 ```
-Note:
 >Flag *--profile* is optional, without this flag credentials will be provided for *default* profile.
 More information [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 
@@ -90,13 +89,28 @@ git clone git@github.com:roman-avseenko/go-stud-lab-aws-infra.git && cd go-stud-
   - *db_username* - username of database user
   - *application_port* - port that will be exposed to the Internet (on which application can handle requests)
 
- Save the file after making changes.
+Open *terraform.tf* and specify:
+  - *region* - AWS region in which the infrastructure will be deployed
+  - (Optional) *profile* - profile name if provided on step 2. If you do not configure this variable *default* profile
+will be used
+
+ Save files after making changes.
+
+> It is strongly recommended deploying infrastructure on eu-north-1 region in purpose of latency redundant
 
 ### 5. Deploy infrastructure
 
 ```bash
 terraform init && terraform apply --auto-approve
 ```
+> Since 1st of march there is some problems with *terraform init*. If you got error like
+> ```bash
+>│ Error: Failed to install provider
+>│ 
+>│ Error while installing hashicorp/aws v4.3.0: could not query provider registry for registry.terraform.io/hashicorp/aws: failed to retrieve authentication checksums for provider: 405 Method Not Allowed
+>```
+> use any VPN connection and run commands from this step another one
+
 > Duration of the deployment is up to 10 minutes
 
 ### 6. Review outputs
